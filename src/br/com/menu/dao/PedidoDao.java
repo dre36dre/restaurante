@@ -2,7 +2,8 @@ package br.com.menu.dao;
 
 import br.com.menu.model.Pedido;
 
-public class PedidoDao {
+public class PedidoDao
+{
 	
 	//criar crud= criar ler atualizar e deletar
 	
