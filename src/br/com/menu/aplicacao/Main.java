@@ -12,7 +12,8 @@ public class Main {
  
 		Pedido pedido= new Pedido();
 		pedido.setNome("Feijoada");
-		pedido.setId(1);
+		pedido.setQuantidade(2);	
+		pedido.setPreco(31);
 		pedido.setDataCadastro(new Date());
 	 
 		pedidoDao.save(pedido);
