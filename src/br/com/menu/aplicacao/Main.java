@@ -11,11 +11,17 @@ public class Main {
 		PedidoDao pedidoDao=new PedidoDao();
  
 		Pedido pedido= new Pedido();
-		pedido.setNome("Feijoada");
-		pedido.setQuantidade(2);	
-		pedido.setPreco(31);
+		pedido.setNome("Pizza");
+		pedido.setQuantidade(1);	
+		pedido.setPreco(35);
 		pedido.setDataCadastro(new Date());
 	 
-		pedidoDao.save(pedido);
+		pedidoDao.save(pedido); 
+		
+		//Visualização dos dados
+		for( Pedido p: pedidoDao.getPedido() ) {
+			System.out.println("Pedido"+p.getNome());
+			
+		}
 	 }
 }
