@@ -11,16 +11,26 @@ public class Main {
 		PedidoDao pedidoDao=new PedidoDao();
  
 		Pedido pedido= new Pedido();
-		pedido.setNome("Pizza");
+		pedido.setNome("feijoada");
 		pedido.setQuantidade(1);	
-		pedido.setPreco(35);
+		pedido.setPreco(29);
 		pedido.setDataCadastro(new Date());
 	 
-		pedidoDao.save(pedido); 
+		//pedidoDao.save(pedido); 
+		
+		//Atualiza o pedido
+		Pedido p1=new Pedido();
+		p1.setNome("Macarronada");
+		p1.setPreco(31);
+		p1.setDataCadastro(new Date());
+		
+		p1.setId(1);//è o numero que esta no banco de dados da pk
+
+		pedidoDao.upDate(p1);
 		
 		//Visualização dos dados
 		for( Pedido p: pedidoDao.getPedido() ) {
-			System.out.println("Pedido"+p.getNome());
+			System.out.println("Nome: "+p.getNome());
 			
 		}
 	 }

@@ -16,21 +16,22 @@ public class PedidoDao
 	//criar CRUD= criar ler atualizar e deletar
 	
 	public void save(Pedido pedido) {
-		String sql="INSERT INTO pedido"
-		+ "(nome,quantidade,preco,tamanho) VALUES(?, ?, ?, ? )";
+		String sql=
+				"INSERT INTO pedido(nome,quantidade,preco,tamanho,dataCadastro) VALUES(?, ?, ?, ? , ?)";
 	Connection conn =null;
 	PreparedStatement pstm =null;
 	
 	
-	try {
+	try {//cria uma conexão com banco de dados
 		conn = ConnectionFactory.createConnectSql();
-	    pstm= conn.prepareStatement(sql);  
+	    pstm= (PreparedStatement) conn.prepareStatement(sql);  
 	    pstm.setString(1,pedido.getNome());
 	    pstm.setInt(2,pedido.getQuantidade());
 	    pstm.setDouble(3,pedido.getPreco());
 	    pstm.setString(4,pedido.getTamanho());
-	    //pstm.setDate(5, new Date(pedido.getDataCadastro().getTime()));
+	    pstm.setDate(5, new Date(pedido.getDataCadastro().getTime() ));
 	    
+	    //Executa a query
 	   pstm.execute();
 	   System.out.println("Pedido salvo com sucesso !");
 	}catch(Exception e) {
@@ -50,10 +51,45 @@ public class PedidoDao
 		}
 		
 	}
+	}//save
+	public void upDate(Pedido pedido) {
+		String sql="UPDATE pedidos  SET nome= ?, preco= ? , dataCadastro= ? "+
+		"WHERE id= ? ";
+		Connection conn= null;
+		PreparedStatement pstm=null;
+		
+		try {
+			//Cria a conexão com o banco
+			conn=ConnectionFactory.createConnectSql();
+			pstm=(PreparedStatement) conn.prepareStatement(sql);
+		//Adiciona os valores para atualizar
+				pstm.setString(1, pedido.getNome());
+				pstm.setDouble(2, pedido.getPreco());
+				pstm.setDate(3,new Date(pedido.getDataCadastro().getTime()));
+				
+				//Qual o id do registro que depois atualizar?
+				pstm.setInt(4, pedido.getId());
+		//Executar a query
+				pstm.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pstm !=null) {
+					pstm.close();
+				}
+				if(conn !=null) {
+					conn.close();
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
-
+	
+	
 	public List<Pedido> getPedido(){
-		String sql= "SELECT * FROM  pedidos";
+		String sql= "SELECT * FROM  pedido";
 		
 		List<Pedido> pedidos= new ArrayList<Pedido>();
 		
@@ -79,8 +115,10 @@ public class PedidoDao
 			pedido.setQuantidade(rset.getInt("quantidade"));
 			//recupera o preco
 			pedido.setPreco(rset.getDouble("preco"));
-			
-			pedidos.add(pedido);
+			//recupera a dataCadastro
+		pedido.setDataCadastro(rset.getDate("dataCadastro") );
+		
+		pedidos.add(pedido);
 			}
 					}catch (Exception e ) {
 						e.printStackTrace();
@@ -99,6 +137,8 @@ public class PedidoDao
 						e.printStackTrace();
 					}
 					}
-	 return pedidos;
+	
+		return pedidos;
+	
 }
 }
