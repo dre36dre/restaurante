@@ -26,7 +26,10 @@ public class Main {
 		
 		p1.setId(1);//è o numero que esta no banco de dados da pk
 
-		pedidoDao.upDate(p1);
+		//pedidoDao.upDate(p1);
+		
+		//remover pedido pelo numero de id
+		pedidoDao.deleteByid(1);
 		
 		//Visualização dos dados
 		for( Pedido p: pedidoDao.getPedido() ) {

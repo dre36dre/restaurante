@@ -87,6 +87,34 @@ public class PedidoDao
 		}
 	}
 	
+	//Delete
+	
+	public void deleteByid(int id) {
+		String sql="DELETE FROM  pedido WHERE id= ?";
+		Connection conn=null;
+		PreparedStatement pstm=null;
+		
+		try {
+			conn=ConnectionFactory.createConnectSql();
+			pstm=conn.prepareStatement(sql);
+			
+			pstm.setInt(1, id);
+			pstm.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+			if(pstm!= null) {
+				pstm.close(); ;
+			}
+			if(conn != null) {
+				conn.close();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	}
 	
 	public List<Pedido> getPedido(){
 		String sql= "SELECT * FROM  pedido";
