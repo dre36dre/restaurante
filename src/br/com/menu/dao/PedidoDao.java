@@ -53,7 +53,7 @@ public class PedidoDao
 	}
 	}//save
 	public void upDate(Pedido pedido) {
-		String sql="UPDATE pedidos  SET nome= ?, preco= ? , dataCadastro= ? "+
+		String sql="UPDATE pedidos SET nome= ?, preco= ? , dataCadastro= ? "+
 		"WHERE id= ? ";
 		Connection conn= null;
 		PreparedStatement pstm=null;
